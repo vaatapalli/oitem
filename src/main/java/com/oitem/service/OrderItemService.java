@@ -1,16 +1,18 @@
 package com.oitem.service;
 
 import com.oitem.entity.Item;
+import com.oitem.entity.OrderItem;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface OrderItemService {
 
-    List<Item> getItems();
+    List<Item> getItems(String customerName);
 
-    Optional<Item> findItem(Long item);
+    OrderItem addItems(OrderItem orderItem);
 
-    Item setItem(Item item);
+    List<Item> getAllItems();
+
+    List<OrderItem> getOrderItems();
 }

@@ -1,6 +1,7 @@
 package com.oitem.controller;
 
 import com.oitem.entity.Item;
+import com.oitem.entity.OrderItem;
 import com.oitem.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,47 +10,43 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class OrderItemController {
 
     @Autowired
-    OrderItemService orderItemService;
+    private final OrderItemService orderItemService;
 
-    @RequestMapping(value = "/get")
-    public ResponseEntity<List<Item>> getItems() {
-
-        List<Item> list = orderItemService.getItems();
-        if (list == null || list.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return ResponseEntity.ok(orderItemService.getItems());
-
+    public OrderItemController(OrderItemService orderItemService) {
+        this.orderItemService = orderItemService;
     }
 
-    @RequestMapping(value = "/get/{product_code}")
-    public ResponseEntity<Item> findItem(@PathVariable Long product_code) {
-
-        Optional<Item> item = orderItemService.findItem(product_code);
-        if (item.isPresent()) {
-            return ResponseEntity.ok(item.get());
-        }
-
-        return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
-
+    @GetMapping("/items/{customerName}")
+    public ResponseEntity<List<Item>> getItems(@PathVariable("customerName") String customerName) {
+        List<Item> list = orderItemService.getItems(customerName);
+        return ResponseEntity.ok(list);
     }
 
+    @GetMapping(value = "/itemList")
+    public ResponseEntity<List<Item>> getItem() {
+        List<Item> items = orderItemService.getAllItems();
+        return ResponseEntity.ok(items);
+    }
 
-    @RequestMapping(value = "/createitem", method = RequestMethod.POST)
-    public ResponseEntity<Item> setItem(@Valid @RequestBody Item item) {
-        Item item1 = orderItemService.setItem(item);
+    @GetMapping(value = "/items")
+    public ResponseEntity<List<OrderItem>> getOrderItems() {
+        List<OrderItem> orderItems = orderItemService.getOrderItems();
+        return ResponseEntity.ok(orderItems);
+    }
 
-        if (item1 == null) {
-            return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
+    @RequestMapping(method = RequestMethod.POST, value = "/items")
+    public ResponseEntity<List<Item>> addItems(@Valid @RequestBody OrderItem orderItem) {
+
+        List<Item> items = orderItemService.addItems(orderItem).getItems();
+        if (items == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(item1);
+        return ResponseEntity.ok(items);
     }
 
 }

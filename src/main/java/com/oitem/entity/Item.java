@@ -1,13 +1,11 @@
 package com.oitem.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "item")
+@Embeddable
 public class Item {
 
-    @Id
     @NotNull(message = "product_code cannot be null")
     private Long product_code;
 

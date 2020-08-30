@@ -8,10 +8,10 @@
 		<version>2.3.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.oitem</groupId>
-	<artifactId>oitem</artifactId>
+	<groupId>com.orderItem</groupId>
+	<artifactId>orderItem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>oitem</name>
+	<name>orderItem</name>
 	<description>Order Item</description>
 
 	<properties>
@@ -40,6 +40,11 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
