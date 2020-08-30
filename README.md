@@ -2,33 +2,43 @@
 
 
 Technology Stack :
+-----------------
 
-Java 8
+* Java 8
+* Apache Tomcat/9.0.37
+* H2 db (H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:order_item')
+    * user name : sa
+    * password : ""
+* Spring Boot 2.3.3.RELEASE
 
-Apache Tomcat/9.0.37
+* @GetItems (each item assosiated with customer )
+   http://localhost:8090/items
 
-H2 db (H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:order_item')
+* @GetSelectedItems with respect to custermerName
+   http://localhost:8090/items/{customerName}
+   
+* @GetAllItems irrespective of customerName
+   http://localhost:8090/itemList
 
-user name : sa
-
-password : ""
-
-Spring Boot 2.3.3.RELEASE
-
-GetOrder
-http://localhost:8090/get
-
-@GetSelectedOrder
-http://localhost:8090/get/{product_code}
-
-@PostOrder 
-http://localhost:8090/createitem
+* @PostItem with customerName
+   http://localhost:8090/items
 
 Sample body :
 -------------
-
 {
-    "product_code": 51,
-    "product_name": "nameee",
-    "quantity": 5
+        "customerName": "customer",
+              "items": [
+							{
+								"product_code": 550,
+								"product_name": "product 1",
+								"quantity": 1
+							},
+							{
+								"product_code": 100,
+								"product_name": "product 2",
+								"quantity": 1
+							}
+						]
+		
+	
 }
