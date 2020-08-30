@@ -23,7 +23,7 @@ Technology Stack :
 * @PostItem with customerName
    http://localhost:8090/items
 
-Sample body :
+Sample Request :
 -------------
 {
         "customerName": "customer",
